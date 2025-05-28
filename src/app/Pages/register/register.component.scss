@@ -1,0 +1,36 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+}
+
+.full-width {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+mat-card {
+    width: 400px;
+    padding: 20px;
+}
+
+mat-error {
+    color: red;
+}
+
+mat-card-title {
+    margin-bottom: 20px;
+}
+
+.signup-ask {
+    margin-top: 15px;
+    a {
+        cursor: pointer;
+        color: blue;
+    }
+    a:hover {
+        text-decoration: underline;
+    }
+}

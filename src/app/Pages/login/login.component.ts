@@ -6,6 +6,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { AuthService } from '../../Services/Auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -27,7 +28,8 @@ export class LoginComponent {
   isLoading: Boolean = false;
 
   constructor(
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {
     this.loginForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
@@ -39,11 +41,27 @@ export class LoginComponent {
   }
 
   public onSubmit() {
-
+    this.isLoading = true;
+    this.authService.login(
+      this.loginForm.value.email,
+      this.loginForm.value.password
+    ).subscribe({
+      next: (data: any) => {
+        console.log('Data:', data);
+        localStorage.setItem('user', JSON.stringify({ ...JSON.parse(data).user, token: JSON.parse(data).token }));
+        this.isLoading = false;
+        this.router.navigateByUrl('/');
+      },
+      error: (err: any) => {
+        this.isLoading = false;
+        let errorRes = JSON.parse(err.error);
+        console.log('Handled error:', err.message)
+      }
+    });
   }
 
   goToSignUp() {
-    this.router.navigateByUrl('/sign-up');
+    this.router.navigateByUrl('/register');
   }
 
 }
