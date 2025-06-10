@@ -1,1 +1,46 @@
-<p>profile works!</p>
+<mat-card>
+    <h3 class="heading"> User Profile</h3>
+
+    <div class="details-wrapper" *ngIf="userData && userData.profileImage">
+        <img [src]="getImage()" alt="Avatar" style="width:200px">
+    </div>
+
+
+    <div *ngIf="userData">
+
+        <div class="details-wrapper">
+
+            <label>First Name: </label> <span>{{userData.firstName}}</span>
+
+        </div>
+
+        <div class="details-wrapper">
+
+            <label>Last Name: </label> <span>{{userData.lastName}}</span>
+
+        </div>
+
+        <div class="details-wrapper">
+
+            <label>Email: </label> <span>{{userData.email}}</span>
+
+        </div>
+
+        <div class="details-wrapper">
+
+            <label>Phone Number: </label> <span>{{userData.phoneNumber ? userData.phoneNumber : 'NA'}}</span>
+
+        </div>
+    </div>
+
+    <div class="details-wrapper">
+        <input type="file" (change)="onFileSelected($event)" accept="image/*">
+    </div>
+
+    <div class="details-wrapper">
+        <button *ngIf="selectedFile" mat-raised-button color="primary" (click)="uploadFile()">
+            Upload
+        </button>
+    </div>
+
+</mat-card>

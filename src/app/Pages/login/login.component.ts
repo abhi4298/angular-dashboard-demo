@@ -27,6 +27,8 @@ export class LoginComponent {
 
   isLoading: Boolean = false;
 
+  serviceError: String = '';
+
   constructor(
     private router: Router,
     private authService: AuthService
@@ -55,7 +57,13 @@ export class LoginComponent {
       error: (err: any) => {
         this.isLoading = false;
         let errorRes = JSON.parse(err.error);
-        console.log('Handled error:', err.message)
+        console.log('error:', err);
+        console.log('errors:', errorRes.errors);
+        if(errorRes.errors && errorRes.errors.length){
+          this.serviceError = errorRes.errors[0].message;
+        } else {
+          this.serviceError = errorRes.message;
+        }
       }
     });
   }

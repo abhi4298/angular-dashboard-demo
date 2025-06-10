@@ -16,8 +16,7 @@
                 <mat-form-field appearance="outline" class="full-width">
                     <mat-label>Mobile Phone</mat-label>
                     <input matInput formControlName="phoneNumber" type="tel" required>
-                    <mat-error
-                        *ngIf="signUpForm.get('phoneNumber')?.invalid && signUpForm.get('phoneNumber')?.touched">
+                    <mat-error *ngIf="signUpForm.get('phoneNumber')?.invalid && signUpForm.get('phoneNumber')?.touched">
                         Please enter a valid phone number.
                     </mat-error>
                 </mat-form-field>
@@ -37,6 +36,10 @@
                         Password must be at least 4 characters.
                     </mat-error>
                 </mat-form-field>
+
+                <mat-error *ngIf="serviceError">
+                    {{serviceError}}
+                </mat-error>
 
                 <button mat-raised-button color="primary" type="submit" [disabled]="signUpForm.invalid">Sign Up</button>
 

@@ -26,6 +26,7 @@ export class RegisterComponent {
   signUpForm: FormGroup;
 
   isLoading: Boolean = false;
+  serviceError: string = '';
 
   constructor(
     private fb: FormBuilder,
@@ -60,6 +61,11 @@ export class RegisterComponent {
         this.isLoading = false;
         console.log('Handled error:', JSON.parse(err.error));
         let errorRes = JSON.parse(err.error);
+        if (errorRes.errors && errorRes.errors.length) {
+          this.serviceError = errorRes.errors[0].message;
+        } else {
+          this.serviceError = errorRes.message;
+        }
       }
     });
   }
